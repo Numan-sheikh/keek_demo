@@ -1,14 +1,12 @@
-'use client'; // If you're using this in a client component in Next.js 13+
+'use client';
 
 import React from 'react';
-import Image from 'next/image'; // Import the Image component from Next.js
-
+import Image from 'next/image';
 
 const TestimonialsSection = () => {
   return (
-    <section className="relative h-230 py-24 bg-white"> {/* Background color and padding for the section */}
-      <div className="container mx-auto px-4 max-w-4xl text-center"> {/* Main content container */}
-        
+    <section className="py-16 md:py-24 bg-white overflow-hidden"> {/* Use responsive padding, remove fixed height */}
+      <div className="container mx-auto px-4 max-w-4xl text-center">
         {/* "WHAT THEY SAY" Heading */}
         <h3 className="text-blue-600 text-sm md:text-base font-bold uppercase tracking-widest mb-2">
           WHAT THEY SAY
@@ -20,67 +18,62 @@ const TestimonialsSection = () => {
         </h3>
 
         {/* Paragraph Description */}
-        <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">
-          We love and value our vibrant community who've experienced <br/>
+        <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto mb-12"> {/* Added margin-bottom */}
+          We love and value our vibrant community who've experienced <br className="sm:hidden" /> {/* Hide br on larger screens */}
           the power of Keek firsthand.
         </p>
 
-        {/* This div contains the Frame_3368x.svg images as per your provided code */}
-        {/* These images are absolutely positioned within this 'absolute inset-0' container */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute top-86 left-28 w-[384px] text-left">
-                <Image
-                    src="/images/Frame_33685.svg"
-                    alt="Image 1"
-                    width={384}
-                    height={384}
-                    className="mb-6 rounded-lg"
-                />
-            </div>
+        {/* Testimonial Cards Section - Use Flexbox for responsiveness */}
+        {/* On small screens, stack vertically (flex-col). On medium screens and up, display in a row (md:flex-row). */}
+        {/* Use `gap` for spacing between cards. */}
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-8 lg:gap-12 mb-12"> {/* Added margin-bottom for nav buttons */}
+          {/* Testimonial Card 1 */}
+          <div className="w-full max-w-sm sm:max-w-md lg:max-w-[384px] text-left">
+            <Image
+              src="/images/Frame_33685.svg"
+              alt="Testimonial Image 1"
+              width={384}
+              height={384}
+              className="mb-6 rounded-lg w-full h-auto" // Ensure image scales
+            />
+            {/* You might want to add actual testimonial text here if these are image-only cards */}
+          </div>
 
-            <div className="absolute top-86 left-128 w-[384px] text-left">
-                <Image
-                    src="/images/Frame_33686.svg"
-                    alt="Image 2"
-                    width={384}
-                    height={384}
-                    className="mb-6 rounded-lg"
-                />
-            </div>
+          {/* Testimonial Card 2 */}
+          <div className="w-full max-w-sm sm:max-w-md lg:max-w-[384px] text-left">
+            <Image
+              src="/images/Frame_33686.svg"
+              alt="Testimonial Image 2"
+              width={384}
+              height={384}
+              className="mb-6 rounded-lg w-full h-auto"
+            />
+          </div>
 
-            <div className="absolute top-86 right-13 w-[384px] text-left">
-                <Image
-                    src="/images/Frame_33687.svg"
-                    alt="Image 3"
-                    width={384}
-                    height={384}
-                    className="mb-6 rounded-lg"
-                />
-            </div>
+          {/* Testimonial Card 3 */}
+          <div className="w-full max-w-sm sm:max-w-md lg:max-w-[384px] text-left">
+            <Image
+              src="/images/Frame_33687.svg"
+              alt="Testimonial Image 3"
+              width={384}
+              height={384}
+              className="mb-6 rounded-lg w-full h-auto"
+            />
+          </div>
         </div>
 
-        {/* **** START: Added Navigation Buttons - Positioned ABSOLUTELY underneath the images **** */}
-        {/* Placed relative to the 'section' for consistent positioning below the absolutely placed images.
-            The 'top' value is calculated based on the images' 'top-86' + their 'height=384' + an additional offset (e.g., 50px) for spacing.
-            This value will need to be adjusted based on your specific layout and how the section height (`h-200`) affects it.
-        */}
-        <div 
-          className="absolute  left-1/2 -translate-x-1/2 z-10" 
-          style={{ top: 'calc(86px + 384px + 288px)' }} 
-        >
-          <div className="flex justify-center  items-center space-x-4">
-            {/* Left Arrow Button */}
-            <button className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
-              <span className="text-2xl font-bold">&larr;</span> {/* Left arrow character */}
-            </button>
+        {/* Navigation Buttons - Now positioned relative to the content flow */}
+        <div className="flex justify-center items-center space-x-4">
+          {/* Left Arrow Button */}
+          <button className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+            <span className="text-2xl font-bold">&larr;</span>
+          </button>
 
-            {/* Right Arrow Button */}
-            <button className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-              <span className="text-2xl font-bold">&rarr;</span> {/* Right arrow character */}
-            </button>
-          </div>
-        </div> {/* **** END: Added Navigation Buttons **** */}
-
+          {/* Right Arrow Button */}
+          <button className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            <span className="text-2xl font-bold">&rarr;</span>
+          </button>
+        </div>
       </div>
     </section>
   );

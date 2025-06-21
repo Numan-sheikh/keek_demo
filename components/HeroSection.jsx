@@ -44,35 +44,35 @@ const HeroSection = () => {
           alt="Background Avatar 1"
           width={39} // Set your desired width
           height={39} // Set your desired height (must match width for perfect circle with rounded-full)
-          className="absolute rounded-full object-cover top-48 left-34 transform -translate-x-1/2 -translate-y-1/2 opacity-100 md:opacity-100" // Added md:opacity-50 for responsiveness
+          className="absolute rounded-full object-cover top-48 left-34 transform -translate-x-1/2 -translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0" // Added md:opacity-50 for responsiveness
         />
         <Image
           src="/icons/icon2.png"
           alt="Background Avatar 2"
           width={58}
           height={58}
-          className="absolute rounded-full object-cover top-38 left-76 transform -translate-x-1/2 -translate-y-1/2 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-38 left-76 transform -translate-x-1/2 -translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0"
         />
         <Image
           src="/icons/iocn6.png"
           alt="Background Avatar 3"
           width={62}
           height={62}
-          className="absolute rounded-full object-cover top-78 left-1 transform translate-x-1/2 -translate-y-1/2 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-78 left-1 transform translate-x-1/2 -translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0"
         />
         <Image
           src="/icons/Linkedin.png"
           alt="Background Avatar 4"
           width={29}
           height={29}
-          className="absolute rounded-full object-cover top-126 left-1/18 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-126 left-1/18 opacity-0 md:opacity-100 sm:opacity-0"
         />
         <Image
           src="/icons/icon4.png"
           alt="Background Avatar 5"
           width={58}
           height={58}
-          className="absolute rounded-full object-cover bottom-148 left-58 transform -translate-x-1/2 translate-y-1/2 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover bottom-148 left-58 transform -translate-x-1/2 translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0"
         />
 
         <Image
@@ -80,21 +80,21 @@ const HeroSection = () => {
           alt="Background Avatar 5"
           width={44}
           height={44}
-          className="absolute rounded-full object-cover top-128 right-1 opacity-100 md:opacity-100"/>
+          className="absolute rounded-full object-cover top-128 right-1 opacity-0 md:opacity-100 sm:opacity-0"/>
 
         <Image
           src="/icons/Snapchat.png" 
           alt="Background Avatar 5"
           width={38}
           height={38}
-          className="absolute rounded-full object-cover top-38 right-1/16 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-38 right-1/16 opacity-0 md:opacity-100 sm:opacity-0"
         />
         <Image
           src="/icons/icon5.png"
           alt="Background Avatar 5"
           width={58}
           height={58}
-          className="absolute rounded-full object-cover bottom-142 right-1/8 transform -translate-x-1/2 translate-y-1/2 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover bottom-142 right-1/8 transform -translate-x-1/2 translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0"
         />
 
         <Image
@@ -102,7 +102,7 @@ const HeroSection = () => {
           alt="Background Avatar 5"
           width={58}
           height={58}
-          className="absolute rounded-full object-cover top-76 right-5 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-76 right-5 opacity-0 md:opacity-100 sm:opacity-0"
         />
 
 
@@ -111,7 +111,7 @@ const HeroSection = () => {
           alt="Background Avatar 5"
           width={58}
           height={58}
-          className="absolute rounded-full object-cover top-1/14 right-62 transform -translate-x-1/2 translate-y-1/2 opacity-100 md:opacity-100"
+          className="absolute rounded-full object-cover top-1/14 right-62 transform -translate-x-1/2 translate-y-1/2 opacity-0 md:opacity-100 sm:opacity-0"
         />
         {/* You can add more images here, adjusting their position, size, and opacity */}
       </div>

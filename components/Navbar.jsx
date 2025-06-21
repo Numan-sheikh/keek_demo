@@ -6,9 +6,9 @@ import Link from 'next/link';
 import Button from './Button';
 
 const Navbar = () => {
-  // Start with isVisible as false, as you want it hidden initially
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { name: 'Brands', href: '#' },
@@ -22,75 +22,142 @@ const Navbar = () => {
     if (typeof window !== 'undefined') {
       const currentScrollY = window.scrollY;
 
-      // Condition to show the navbar:
-      // 1. User is scrolling UP (currentScrollY < lastScrollY)
-      // 2. User is near the top of the page (e.g., within the first 200px)
-      //    This makes the "top section" trigger. Adjust 200px as needed.
-      // 3. Alternatively, if you want it to appear anytime you scroll up: currentScrollY < lastScrollY
-      //    But based on "hit the top section", we'll combine with a top threshold.
-
-      // Logic:
-      // If we are at the very top (or very close), always show it.
-      if (currentScrollY <= 50) { // Adjust this threshold for "top section"
+      if (currentScrollY <= 50) {
         setIsVisible(true);
-      }
-      // If scrolling up AND not at the very top, keep it visible
-      else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY < lastScrollY) {
         setIsVisible(true);
-      }
-      // If scrolling down AND not at the very top, hide it
-      else {
+      } else {
         setIsVisible(false);
       }
-
       setLastScrollY(currentScrollY);
     }
   };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Set initial visibility based on page load position
-      if (window.scrollY <= 50) { // If already at the top on load, show it
-        setIsVisible(true);
-      } else { // Otherwise, hide it initially
-        setIsVisible(false);
-      }
-
+      setIsVisible(window.scrollY <= 50);
       window.addEventListener('scroll', handleScroll);
-
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }
-  }, []); // Empty dependency array means this effect runs only once on mount
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (isMobileMenuOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+
+      const closeMenuOnScroll = () => {
+        if (isMobileMenuOpen) {
+          setIsMobileMenuOpen(false);
+        }
+      };
+
+      window.addEventListener('scroll', closeMenuOnScroll);
+      return () => window.removeEventListener('scroll', closeMenuOnScroll);
+    }
+  }, [isMobileMenuOpen]);
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg p-4 shadow-md
+      className={`fixed  top-0 left-0 right-0 z-50 py-4 px-4
         transition-transform duration-300 ease-in-out
-        ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
+        ${isVisible ? 'translate-y-0' : '-translate-y-full'}
+        ${
+          isMobileMenuOpen
+            ? 'bg-blue-800' // This is the main navbar's background when mobile menu is OPEN
+            : 'bg-opacity-0 backdrop-blur-lg' // This is the main navbar's background when mobile menu is CLOSED (desktop/normal mobile view)
+        }
+      `}
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-white text-3xl font-extrabold tracking-wide">
+        <Link
+          href="/"
+          className="text-white text-3xl font-extrabold tracking-wide z-20"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
           KEEK
         </Link>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex space-x-8">
+        {/* Hamburger Icon for Mobile Screens */}
+        <div className="md:hidden bg-black flex items-center z-20">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-white focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-md"
+            aria-label={isMobileMenuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            ) : (
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex space-x-8 items-center bg-opacity-0">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className="text-gray-300 hover:text-white transition-colors duration-200 text-lg font-medium">
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-gray-100 hover:text-white transition-colors duration-200 text-lg font-medium"
+            >
               {link.name}
             </Link>
           ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex items-center space-x-4">
-          <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-lg font-medium hidden lg:inline-block">
+          <Link
+            href="#"
+            className="text-gray-100 hover:text-white transition-colors duration-200 text-lg font-medium hidden lg:inline-block"
+          >
             Login
           </Link>
           <Button variant="primary" onClick={() => console.log('Get a Free Demo clicked!')}>
+            Get a Free Demo
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-opacity-0 transform transition-transform duration-300 ease-in-out md:hidden z-10
+          ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          // FIX: Changed bg-opacity-95 to bg-opacity-100 here for full opaqueness of the mobile menu
+      >
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-white text-3xl font-extrabold hover:text-blue-200 transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Link
+            href="#"
+            className="text-white text-3xl font-extrabold hover:text-blue-200 transition-colors duration-200"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Login
+          </Link>
+          <Button
+            variant="primary"
+            onClick={() => {
+              console.log('Get a Free Demo clicked!');
+              setIsMobileMenuOpen(false);
+            }}
+          >
             Get a Free Demo
           </Button>
         </div>
