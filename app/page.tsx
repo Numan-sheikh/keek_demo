@@ -2,14 +2,21 @@
 import HeroSection from '../components/HeroSection';
 import BenefitSection from '../components/Benefit';
 import Navbar from '../components/Navbar';
+import HowItWorksSection from '../components/How_it_Works';
+import TestimonialsSection from '../components/Testimonials';
+import CallToAction from '../components/CalltoAction';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   return (
     <main>
       <Navbar />
       <HeroSection />
-      {/* Add a top margin to the BenefitSection */}
-      <BenefitSection className="mt-0" />
+      <BenefitSection/>
+      <HowItWorksSection/>
+      <TestimonialsSection/>
+      <CallToAction/>
+      <Footer/>
 
 
       {/* You can add more sections here as needed */}
